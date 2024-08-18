@@ -1,10 +1,17 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../components/shared/Navbar';
 
 const Root = () => {
+
+    const location = useLocation();
+    const pathname = location.pathname;
+
     return (
         <div>
-            <Navbar />
+            {
+                !pathname.includes("/login" ) && <Navbar />
+            }
+            {/* <Navbar /> */}
             <Outlet />
         </div>
     );
