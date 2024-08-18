@@ -1,10 +1,13 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 const Register = () => {
 
-    const {createUser} = useContext(AuthContext);
+    const { createUser } = useContext(AuthContext);
+
+    const axiosPublic = useAxiosPublic();
 
     const handleReg = e => {
         e.preventDefault();
@@ -14,12 +17,22 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        const reg = {name, email, password};
+        const reg = { name, email, password };
         console.log(reg);
 
         createUser(email, password)
             .then(res => {
                 console.log(res.user);
+
+                const user = { name, email, password, status: "user" }
+
+                axiosPublic.post("/users", user)
+                    .then(res => {
+                        console.log(res.data);
+                    })
+                    .catch(err => {
+                        console.log(err.message);
+                    })
             })
             .catch(err => {
                 console.log(err);
