@@ -1,6 +1,10 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Register = () => {
+
+    const {createUser} = useContext(AuthContext);
 
     const handleReg = e => {
         e.preventDefault();
@@ -12,6 +16,14 @@ const Register = () => {
 
         const reg = {name, email, password};
         console.log(reg);
+
+        createUser(email, password)
+            .then(res => {
+                console.log(res.user);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
     return (
         <div className='flex justify-center items-center bg-[#f9f6f1] min-h-screen'>

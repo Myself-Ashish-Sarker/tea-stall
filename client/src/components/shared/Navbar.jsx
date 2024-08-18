@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BsPersonCircle } from "react-icons/bs";
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Navbar = () => {
+
+    const { user } = useContext(AuthContext);
 
     const location = useLocation();
     const pathname = location.pathname;
@@ -59,7 +62,12 @@ const Navbar = () => {
                     <div className="dropdown dropdown-end">
                         <figure tabIndex={0} role="button" className=""><BsPersonCircle className='text-white text-3xl' /></figure>
                         <ul tabIndex={0} className="dropdown-content menu bg-green-100 rounded-box z-[1] w-52 mt-6 p-2 shadow">
-                            <li><Link className='hover:bg-yellow-500 hover:text-white' to="/login">Log In</Link></li>
+                            {
+                                user ?
+                                    <li><Link className='hover:bg-yellow-500 hover:text-white' >Log Out</Link></li>
+                                    :
+                                    <li><Link className='hover:bg-yellow-500 hover:text-white' to="/login">Log In</Link></li>
+                            }
                             <li><Link className='hover:bg-yellow-500 hover:text-white'>Dark Mode</Link></li>
                         </ul>
                     </div>
