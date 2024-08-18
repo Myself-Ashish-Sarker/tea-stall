@@ -9,7 +9,7 @@ const Root = () => {
     return (
         <div>
             {
-                !pathname.includes("/login" ) && <Navbar />
+                !pathname.includes("/login" ) && !pathname.includes("/register") && <Navbar />
             }
             {/* <Navbar /> */}
             <Outlet />
