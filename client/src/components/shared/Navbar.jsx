@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { BsPersonCircle } from "react-icons/bs";
 
 const Navbar = () => {
 
     const location = useLocation();
     const pathname = location.pathname;
-    console.log(pathname); 
+    console.log(pathname);
 
     const links = [
         {
@@ -55,8 +56,15 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <Link to="/login" className="btn">Login</Link>
+                    <div className="dropdown dropdown-end">
+                        <figure tabIndex={0} role="button" className=""><BsPersonCircle className='text-white text-3xl' /></figure>
+                        <ul tabIndex={0} className="dropdown-content menu bg-green-100 rounded-box z-[1] w-52 mt-6 p-2 shadow">
+                            <li><Link className='hover:bg-yellow-500 hover:text-white' to="/login">Log In</Link></li>
+                            <li><Link className='hover:bg-yellow-500 hover:text-white'>Dark Mode</Link></li>
+                        </ul>
+                    </div>
                 </div>
+
             </div>
         </div>
     );
