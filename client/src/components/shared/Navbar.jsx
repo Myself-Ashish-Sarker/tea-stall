@@ -2,14 +2,21 @@ import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BsPersonCircle } from "react-icons/bs";
 import { AuthContext } from '../../providers/AuthProvider';
+import { signOut } from 'firebase/auth';
 
 const Navbar = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
 
     const location = useLocation();
     const pathname = location.pathname;
     console.log(pathname);
+
+    const handleLogOut = () => {
+        logOut()
+            .then()
+            .catch()
+    }
 
     const links = [
         {
@@ -64,7 +71,7 @@ const Navbar = () => {
                         <ul tabIndex={0} className="dropdown-content menu bg-green-100 rounded-box z-[1] w-52 mt-6 p-2 shadow">
                             {
                                 user ?
-                                    <li><Link className='hover:bg-yellow-500 hover:text-white' >Log Out</Link></li>
+                                    <button onClick={handleLogOut}><li><Link className='hover:bg-yellow-500 hover:text-white' >Log Out</Link></li></button>
                                     :
                                     <li><Link className='hover:bg-yellow-500 hover:text-white' to="/login">Log In</Link></li>
                             }
