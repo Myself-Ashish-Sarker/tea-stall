@@ -1,6 +1,10 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Login = () => {
+
+    const {signIn} = useContext(AuthContext);
 
     const handleLog = e => {
         e.preventDefault();
@@ -12,6 +16,14 @@ const Login = () => {
 
         const log = {name, email, password};
         console.log(log);
+
+        signIn(email, password)
+            .then(res => {
+                console.log(res.user);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
     return (
         <div className='flex justify-center items-center bg-[#f9f6f1] min-h-screen'>

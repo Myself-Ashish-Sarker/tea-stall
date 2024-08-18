@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BsPersonCircle } from "react-icons/bs";
 import { AuthContext } from '../../providers/AuthProvider';
-import { signOut } from 'firebase/auth';
 
 const Navbar = () => {
 
