@@ -4,6 +4,7 @@ import { AuthContext } from '../../providers/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { MdRemoveRedEye } from "react-icons/md";
 
 const Login = () => {
 
@@ -31,7 +32,7 @@ const Login = () => {
                 setTimeout(() => {
                     navigate("/")
                 }, 5000);
-                
+
             })
             .catch(err => {
                 console.log(err);
@@ -59,7 +60,11 @@ const Login = () => {
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" placeholder="password" className="input input-bordered" name="password" required />
+                                <div className='relative'>
+                                    <input type="password" placeholder="password" className="input input-bordered w-full pr-14" name="password" required />
+                                    <MdRemoveRedEye className='absolute right-4 top-4 text-lg cursor-pointer' />
+                                </div>
+                                
                             </div>
                             <div>
                                 <p>No Account? <span><Link to="/register">Register</Link></span></p>

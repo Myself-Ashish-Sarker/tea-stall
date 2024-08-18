@@ -2,6 +2,10 @@ import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BsPersonCircle } from "react-icons/bs";
 import { AuthContext } from '../../providers/AuthProvider';
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Navbar = () => {
 
@@ -78,8 +82,8 @@ const Navbar = () => {
                         </ul>
                     </div>
                 </div>
-
             </div>
+            <ToastContainer />
         </div>
     );
 };
