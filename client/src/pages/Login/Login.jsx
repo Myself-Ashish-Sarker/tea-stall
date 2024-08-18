@@ -1,10 +1,15 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 
-    const {signIn} = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const { signIn } = useContext(AuthContext);
 
     const handleLog = e => {
         e.preventDefault();
@@ -14,17 +19,28 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        const log = {name, email, password};
+        const log = { name, email, password };
         console.log(log);
 
         signIn(email, password)
             .then(res => {
                 console.log(res.user);
+                toast.success("Successfully Logged In!", {
+                    position: "top-right"
+                });
+                setTimeout(() => {
+                    navigate("/")
+                }, 5000);
+                
             })
             .catch(err => {
                 console.log(err);
+                toast.error("Email and Password got wrong !", {
+                    position: "top-right"
+                });
             })
     }
+
     return (
         <div className='flex justify-center items-center bg-[#f9f6f1] min-h-screen'>
             <div>
@@ -61,6 +77,7 @@ const Login = () => {
                     </button>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };
