@@ -35,11 +35,16 @@ async function run() {
 
         app.post("/users", async (req, res) => {
             const user = req.body;
+            const email = user.email;
+            const existingUser = await usersCollection.findOne({ email });
+            if (existingUser) {
+                return res.status(409).json({ message: "user already exists" })
+            }
             const result = await usersCollection.insertOne(user);
             res.send(result);
         })
 
-        app.get("/users", async(req, res) => {
+        app.get("/users", async (req, res) => {
             const result = await usersCollection.find().toArray()
             res.send(result);
         })

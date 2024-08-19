@@ -32,6 +32,9 @@ const Register = () => {
                     })
                     .catch(err => {
                         console.log(err.message);
+                        if(err.response && err.response.status === 409) {
+                            console.log(err.response.data.message);
+                        }
                     })
             })
             .catch(err => {
