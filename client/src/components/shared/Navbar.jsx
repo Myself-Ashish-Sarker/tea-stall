@@ -5,11 +5,14 @@ import { AuthContext } from '../../providers/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import useAdmin from '../../hooks/useAdmin';
 
 
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext);
+
+    const {isAdmin, loading, error} = useAdmin();
 
     const location = useLocation();
     const pathname = location.pathname;
@@ -31,6 +34,54 @@ const Navbar = () => {
             path: "/about"
         }
     ]
+
+    if (user) {
+        links.push({
+            title: "Dashboard",
+            path: "/dashboard"
+            
+        });
+    }
+
+    const dashboards = isAdmin
+        ? [
+            
+            {
+                title: "All Users",
+                path: "/all-users"
+            }
+        ]
+        :
+        [
+            {
+                title: "User Order",
+                path: "/user-order"
+            }
+        ]
+
+        if (pathname.includes("dashboard")) {
+            return (
+                <div>
+                    <div className="drawer lg:drawer-open">
+                        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+                        <div className="drawer-content flex flex-col items-center justify-center">
+                            {/* Page content here */}
+                            <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">
+                                Open drawer
+                            </label>
+                        </div>
+                        <div className="drawer-side">
+                            <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
+                            <ul className={`menu ${isAdmin ? "bg-blue-600" : "bg-yellow-500"} text-white min-h-full w-80 p-4`}>
+                                {
+                                    dashboards?.map(dashboard => <li><Link to={dashboard.path} key={dashboard.title}>{dashboard.title}</Link></li>)
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
 
     return (
         <div>
