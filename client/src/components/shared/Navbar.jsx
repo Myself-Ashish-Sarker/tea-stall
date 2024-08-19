@@ -79,6 +79,7 @@ const Navbar = () => {
                                     <li><Link className='hover:bg-yellow-500 hover:text-white' to="/login">Log In</Link></li>
                             }
                             <li><Link className='hover:bg-yellow-500 hover:text-white'>Dark Mode</Link></li>
+                            <li><Link to="/user-info">User Info</Link></li>
                         </ul>
                     </div>
                 </div>
