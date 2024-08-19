@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import axios from 'axios';
 
 const AllUsers = () => {
 
@@ -14,6 +15,16 @@ const AllUsers = () => {
                 console.log(res.data);
             })
     }, [axiosPublic])
+
+    const handleDelete = async(id) => {
+        try {
+            console.log(id);
+            const res = await axiosPublic.delete(`users/${id}`);
+            console.log(res.data);
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
 
     return (
         <div>
@@ -33,7 +44,7 @@ const AllUsers = () => {
                     <tbody>
                         {
                             users?.map(user => (
-                                <tr>
+                                <tr key={user._id}>
                                     <td>
                                         <div className="flex items-center gap-3">
                                             <div className="avatar">
@@ -48,7 +59,7 @@ const AllUsers = () => {
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <th>
-                                        <button className="btn bg-red-600 text-white hover:bg-red-500">Delete</button>
+                                        <button onClick={() => handleDelete(user._id)} className="btn bg-red-600 text-white hover:bg-red-500">Delete</button>
                                     </th>
                                 </tr>
                             ))
