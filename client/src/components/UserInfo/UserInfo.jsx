@@ -22,6 +22,8 @@ const UserInfo = () => {
                                                 <h1>User Name: {userData.name}</h1>
                                                 <h1>Password: {userData.password}</h1>
                                                 <h1>User Stats: {userData.status}</h1>
+                                                <h1>User Image: {userData.img}</h1>
+                                                <img className="w-44 rounded-full" src={userData.img} alt="" />
                                             </div>
                                         </div>
                                     </>
