@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const admin = require("firebase-admin");
 require('dotenv').config()
 const port = process.env.PORT || 5000;
 const app = express();
@@ -22,6 +23,11 @@ const client = new MongoClient(uri, {
         strict: true,
         deprecationErrors: true,
     }
+});
+
+// Initialize Firebase Admin SDK
+admin.initializeApp({
+    credential: admin.credential.applicationDefault(), // Use your credentials
 });
 
 async function run() {
@@ -50,12 +56,24 @@ async function run() {
             res.send(result);
         })
 
-        app.delete("/users/:id", async(req, res) => {
+        app.delete("/users/:id", async (req, res) => {
             const id = req.params.id;
-            const query = {_id: new ObjectId(id)};
+            const query = { _id: new ObjectId(id) };
             const result = await usersCollection.deleteOne(query);
             res.send(result);
         })
+
+        // Endpoint to delete user from Firebase
+        app.delete('/deleteUser/:uid', async (req, res) => {
+            const { uid } = req.params;
+
+            try {
+                await admin.auth().deleteUser(uid);
+                res.status(200).send({ message: 'User deleted from Firebase' });
+            } catch (error) {
+                res.status(500).send({ error: error.message });
+            }
+        });
         // user section
 
         console.log("Pinged your deployment. You successfully connected to MongoDB!");

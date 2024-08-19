@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import axios from 'axios';
+import { AuthContext } from '../../../providers/AuthProvider';
 
 const AllUsers = () => {
+
+    const {user, delUser} = useContext(AuthContext);
 
     const [users, setUsers] = useState([]);
 
@@ -16,11 +19,17 @@ const AllUsers = () => {
             })
     }, [axiosPublic])
 
-    const handleDelete = async(id) => {
+    const handleDelete = async(id, firebaseUid) => {
         try {
             console.log(id);
+            console.log("uid: ", firebaseUid);
             const res = await axiosPublic.delete(`users/${id}`);
             console.log(res.data);
+
+            if (res.status === 200) {
+                const firebaseRes = await axiosPublic.delete(`/deleteUser/${firebaseUid}`);
+                console.log(firebaseRes.data);
+            }
         } catch (err) {
             console.log(err.message);
         }
@@ -59,7 +68,7 @@ const AllUsers = () => {
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <th>
-                                        <button onClick={() => handleDelete(user._id)} className="btn bg-red-600 text-white hover:bg-red-500">Delete</button>
+                                        <button onClick={() => handleDelete(user._id, user.firebaseUid)} className="btn bg-red-600 text-white hover:bg-red-500">Delete</button>
                                     </th>
                                 </tr>
                             ))

@@ -29,10 +29,14 @@ const Register = () => {
 
         createUser(email, password)
             .then(res => {
-                console.log(res.user);
-                const user = { name, img, email, password, status: "user" }
+                const { user } = res;
+                const uid = user.uid;
 
-                axiosPublic.post("/users", user)
+
+                console.log(res.user);
+                const newUser = { name, img, email, password, uid, status: "user" }
+
+                axiosPublic.post("/users", newUser)
                     .then(res => {
                         console.log(res.data);
                         if (res.data.insertedId) {

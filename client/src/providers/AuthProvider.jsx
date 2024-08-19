@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, deleteUser, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { app } from '../firebase/firebase.config';
 import { createContext, useEffect, useState } from "react";
 
@@ -26,6 +26,15 @@ const AuthProvider = ({ children }) => {
         return signOut(auth);
     }
 
+    const delUser = (email, password) => {
+        if (user) {
+            setLoading(true);
+            return deleteUser(user)
+        } else {
+            return Promise.reject(new Error("No user currently signed in"))
+        }
+    } 
+
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             console.log("User in the on auth state changed", currentUser);
@@ -42,7 +51,8 @@ const AuthProvider = ({ children }) => {
         loading,
         createUser,
         signIn,
-        logOut
+        logOut,
+        delUser
     }
 
     return (
