@@ -1,13 +1,19 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
+import { FirebaseError } from 'firebase/app';
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
 
     const { createUser } = useContext(AuthContext);
 
     const axiosPublic = useAxiosPublic();
+
+    const navigate = useNavigate();
 
     const handleReg = e => {
         e.preventDefault();
@@ -23,12 +29,19 @@ const Register = () => {
         createUser(email, password)
             .then(res => {
                 console.log(res.user);
-
                 const user = { name, email, password, status: "user" }
 
                 axiosPublic.post("/users", user)
                     .then(res => {
                         console.log(res.data);
+                        if (res.data.insertedId) {
+                            toast.success("Successfully Registered!", {
+                                position: "top-right"
+                            });
+                            setTimeout(() => {
+                                navigate("/");
+                            }, 5000);
+                        }
                     })
                     .catch(err => {
                         console.log(err.message);
@@ -39,6 +52,11 @@ const Register = () => {
             })
             .catch(err => {
                 console.log(err);
+                if (err.code === "auth/email-already-in-use") {
+                    toast.error("User already exists !", {
+                        position: "top-right"
+                    });
+                }
             })
     }
     return (
@@ -83,6 +101,7 @@ const Register = () => {
                     </button>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };
