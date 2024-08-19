@@ -48,14 +48,14 @@ const Navbar = () => {
             
             {
                 title: "All Users",
-                path: "/all-users"
+                path: "all-users"
             }
         ]
         :
         [
             {
                 title: "User Order",
-                path: "/user-order"
+                path: "user-order"
             }
         ]
 
@@ -74,7 +74,7 @@ const Navbar = () => {
                             <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
                             <ul className={`menu ${isAdmin ? "bg-blue-600" : "bg-yellow-500"} text-white min-h-full w-80 p-4`}>
                                 {
-                                    dashboards?.map(dashboard => <li><Link to={dashboard.path} key={dashboard.title}>{dashboard.title}</Link></li>)
+                                    dashboards?.map(dashboard => <li key={dashboard.title}><Link to={dashboard.path}>{dashboard.title}</Link></li>)
                                 }
                             </ul>
                         </div>

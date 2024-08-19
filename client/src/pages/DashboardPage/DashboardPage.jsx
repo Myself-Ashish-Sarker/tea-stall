@@ -4,10 +4,16 @@ import { Outlet } from 'react-router-dom';
 
 const DashboardPage = () => {
     return (
-        <div>
-            <Navbar />
-            <Outlet />
-        </div>
+        <>
+            <div className='flex'>
+                <div>
+                    <Navbar />
+                </div>
+                <div>
+                    <Outlet />
+                </div>
+            </div>
+        </>
     );
 };
 
