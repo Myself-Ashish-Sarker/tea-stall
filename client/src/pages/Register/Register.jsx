@@ -20,16 +20,17 @@ const Register = () => {
 
         const form = e.target;
         const name = form.name.value;
+        const img = form.img.value;
         const email = form.email.value;
         const password = form.password.value;
 
-        const reg = { name, email, password };
+        const reg = { name, img, email, password };
         console.log(reg);
 
         createUser(email, password)
             .then(res => {
                 console.log(res.user);
-                const user = { name, email, password, status: "user" }
+                const user = { name, img, email, password, status: "user" }
 
                 axiosPublic.post("/users", user)
                     .then(res => {
@@ -71,7 +72,13 @@ const Register = () => {
                                 <label className="label">
                                     <span className="label-text">Name</span>
                                 </label>
-                                <input type="name" placeholder="name" className="input input-bordered" name="name" required />
+                                <input type="text" placeholder="name" className="input input-bordered" name="name" required />
+                            </div>
+                            <div className="form-control pb-2">
+                                <label className="label">
+                                    <span className="label-text">Image Link</span>
+                                </label>
+                                <input type="text" placeholder="Image Link" className="input input-bordered" name="img" required />
                             </div>
                             <div className="form-control pb-2">
                                 <label className="label">
