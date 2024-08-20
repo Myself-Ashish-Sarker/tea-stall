@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
-import axios from 'axios';
+import Swal from 'sweetalert2'
 import { AuthContext } from '../../../providers/AuthProvider';
 
 const AllUsers = () => {
 
-    const {user, delUser} = useContext(AuthContext);
+    // const {user, delUser} = useContext(AuthContext);
 
     const [users, setUsers] = useState([]);
 
@@ -19,16 +19,44 @@ const AllUsers = () => {
             })
     }, [axiosPublic])
 
-    const handleDelete = async(id, firebaseUid) => {
+    const handleDelete = async (id, uid) => {
         try {
-            console.log(id);
-            console.log("uid: ", firebaseUid);
-            const res = await axiosPublic.delete(`users/${id}`);
-            console.log(res.data);
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            });
 
-            if (res.status === 200) {
-                const firebaseRes = await axiosPublic.delete(`/deleteUser/${firebaseUid}`);
-                console.log(firebaseRes.data);
+            if (result.isConfirmed) {
+                try {
+                    const res = await axiosPublic.delete(`users/${id}`);
+                    console.log(res.data);
+
+                    if (res.status === 200) {
+                        const firebaseRes = await axiosPublic.delete(`/users/firebase/${uid}`);
+                        console.log(firebaseRes.data);
+                    }
+
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+
+                    // Optionally, update the UI after deletion
+                    setUsers(users.filter(user => user._id !== id));
+                } catch (err) {
+                    console.log(err.message);
+                    Swal.fire({
+                        title: "Error!",
+                        text: "There was an issue deleting the user.",
+                        icon: "error"
+                    });
+                }
             }
         } catch (err) {
             console.log(err.message);
@@ -68,7 +96,7 @@ const AllUsers = () => {
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <th>
-                                        <button onClick={() => handleDelete(user._id, user.firebaseUid)} className="btn bg-red-600 text-white hover:bg-red-500">Delete</button>
+                                        <button onClick={() => handleDelete(user._id, user.uid)} className="btn bg-red-600 text-white hover:bg-red-500">Delete</button>
                                     </th>
                                 </tr>
                             ))

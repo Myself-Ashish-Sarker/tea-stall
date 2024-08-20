@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const admin = require("firebase-admin");
+const serviceAccount = require("./serviceAccountKey.json");
 require('dotenv').config()
 const port = process.env.PORT || 5000;
 const app = express();
@@ -27,7 +28,7 @@ const client = new MongoClient(uri, {
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
-    credential: admin.credential.applicationDefault(), // Use your credentials
+    credential: admin.credential.cert(serviceAccount)
 });
 
 async function run() {
@@ -64,13 +65,15 @@ async function run() {
         })
 
         // Endpoint to delete user from Firebase
-        app.delete('/deleteUser/:uid', async (req, res) => {
+        app.delete("/users/firebase/:uid", async (req, res) => {
             const { uid } = req.params;
-
+            console.log("Attempting to delete Firebase user with UID:", uid);
+        
             try {
                 await admin.auth().deleteUser(uid);
                 res.status(200).send({ message: 'User deleted from Firebase' });
             } catch (error) {
+                console.error("Error deleting Firebase user:", error);
                 res.status(500).send({ error: error.message });
             }
         });
