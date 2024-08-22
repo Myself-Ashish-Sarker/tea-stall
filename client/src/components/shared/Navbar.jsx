@@ -49,6 +49,10 @@ const Navbar = () => {
             {
                 title: "All Users",
                 path: "all-users"
+            },
+            {
+                title: "Home",
+                path: "/"
             }
         ]
         :
@@ -56,6 +60,10 @@ const Navbar = () => {
             {
                 title: "User Order",
                 path: "user-order"
+            },
+            {
+                title: "Home",
+                path: "/"
             }
         ]
 
