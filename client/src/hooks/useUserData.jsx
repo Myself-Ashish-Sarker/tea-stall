@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../providers/AuthProvider';
 import useAxiosPublic from './useAxiosPublic';
-import { useNavigate } from 'react-router-dom';
 
 const useUserData = () => {
 
@@ -11,7 +10,6 @@ const useUserData = () => {
     const [error, setError] = useState(false);
 
     const axiosPublic = useAxiosPublic();
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUser = async () => {

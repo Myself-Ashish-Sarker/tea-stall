@@ -10,6 +10,7 @@ import DashboardPage from "../pages/DashboardPage/DashboardPage";
 import UserOrders from "../pages/DashboardPage/UserPages/UserOrders";
 import AllUsers from "../pages/DashboardPage/AdminPages/AllUsers";
 import CoffeeDetails from "../pages/HomePage/CoffeeDetails";
+import UserCart from "../pages/DashboardPage/UserPages/UserCart";
 
 const router = createBrowserRouter([
     {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
             {
                 path: "user-order",
                 element: <UserOrders />
+            },
+            {
+                path: "user-cart",
+                element: <UserCart />
             },
             {
                 path: "all-users",

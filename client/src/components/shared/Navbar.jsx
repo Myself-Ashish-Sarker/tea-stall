@@ -62,6 +62,10 @@ const Navbar = () => {
                 path: "user-order"
             },
             {
+                title: "User Cart",
+                path: "user-cart"
+            },
+            {
                 title: "Home",
                 path: "/"
             }
