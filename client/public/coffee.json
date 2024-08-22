@@ -1,0 +1,44 @@
+[
+    {
+        "coffee_name": "Espresso",
+        "coffee_short_details": "A strong and rich shot of coffee.",
+        "coffee_details": "Espresso is a concentrated form of coffee served in small, strong shots. It is made by forcing hot water under pressure through finely-ground coffee beans. The result is a thicker, more intense flavor profile with a rich aroma. Espresso forms the base for many popular coffee drinks like lattes, cappuccinos, and macchiatos. Its bold flavor and energy boost make it a favorite among coffee enthusiasts.",
+        "coffee_price": 3.50,
+        "coffee_img": "https://example.com/espresso.jpg"
+    },
+    {
+        "coffee_name": "Latte",
+        "coffee_short_details": "Smooth coffee with steamed milk.",
+        "coffee_details": "A latte is a popular coffee drink made with espresso and steamed milk, creating a smooth and creamy texture. The balance of the strong espresso with the mellow sweetness of the milk makes it a favorite choice for those who prefer a milder coffee experience. Often, lattes are topped with a layer of foam and can be customized with various flavors like vanilla or caramel.",
+        "coffee_price": 4.00,
+        "coffee_img": "https://example.com/latte.jpg"
+    },
+    {
+        "coffee_name": "Cappuccino",
+        "coffee_short_details": "Espresso with steamed milk and foam.",
+        "coffee_details": "Cappuccino is a classic Italian coffee drink that combines equal parts espresso, steamed milk, and milk foam. The rich flavor of the espresso is complemented by the creamy texture of the steamed milk, while the foam adds a light and airy finish. Cappuccinos are typically enjoyed in the morning and can be dusted with cocoa powder or cinnamon for added flavor.",
+        "coffee_price": 4.50,
+        "coffee_img": "https://example.com/cappuccino.jpg"
+    },
+    {
+        "coffee_name": "Americano",
+        "coffee_short_details": "Espresso diluted with hot water.",
+        "coffee_details": "An Americano is a simple yet satisfying coffee drink made by diluting a shot of espresso with hot water. This process creates a smooth, yet strong coffee flavor that is less intense than a straight espresso shot. It is popular among those who enjoy the depth of espresso but prefer a larger, more sippable drink. The Americano can be enjoyed black or with a splash of milk.",
+        "coffee_price": 3.00,
+        "coffee_img": "https://example.com/americano.jpg"
+    },
+    {
+        "coffee_name": "Mocha",
+        "coffee_short_details": "Chocolate-flavored coffee with steamed milk.",
+        "coffee_details": "Mocha is a delightful coffee drink that combines the boldness of espresso with the rich sweetness of chocolate and the creaminess of steamed milk. Often topped with whipped cream, mochas are a popular choice for those who crave a dessert-like coffee experience. The blend of coffee and chocolate creates a harmonious flavor that is both indulgent and satisfying, making it a favorite treat for many.",
+        "coffee_price": 4.75,
+        "coffee_img": "https://example.com/mocha.jpg"
+    },
+    {
+        "coffee_name": "Macchiato",
+        "coffee_short_details": "Espresso with a dash of foamed milk.",
+        "coffee_details": "A macchiato is a coffee drink that consists of a shot of espresso marked with a small amount of foamed milk. The word 'macchiato' means 'stained' or 'spotted' in Italian, referring to the milk that 'stains' the espresso. This drink is perfect for those who enjoy the strong, bold flavor of espresso but prefer it softened slightly with the richness of milk. It’s a simple yet sophisticated choice for coffee lovers.",
+        "coffee_price": 3.75,
+        "coffee_img": "https://example.com/macchiato.jpg"
+    }
+]
