@@ -85,6 +85,17 @@ async function run() {
             const result = await coffeesCollection.find().toArray();
             res.send(result);
         })
+
+        app.get("/coffee/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = {_id: new ObjectId(id)};
+            const options = {
+                // Inculde only the 'title' and 'imdb' fields in the returned document
+                projection: { coffee_name: 1, coffee_short_details: 1, coffee_details: 1, coffee_price: 1, coffee_img: 1, }
+            };
+            const result = await coffeesCollection.findOne(query, options);
+            res.send(result);
+        })
         // coffee section
 
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
