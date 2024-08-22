@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Coffee = () => {
+
+    const axiosPublic = useAxiosPublic();
 
     const [coffees, setCoffees] = useState([]);
 
     useEffect(() => {
-        fetch("coffee.json")
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                setCoffees(data)
+        axiosPublic.get("/coffee")
+            .then(res => {
+                console.log(res.data);
+                setCoffees(res.data)
             })
             .catch(err => {
                 console.log(err.message);
@@ -18,7 +20,7 @@ const Coffee = () => {
     }, [])
 
     return (
-        <div className="grid grid-cols-3 place-items-center space-y-5">
+        <div className="grid grid-cols-3 place-items-center gap-5">
             {
                 coffees.map((coffee, index) => (
                     <div key={index} className="card bg-base-100 w-96 shadow-xl">
