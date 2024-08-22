@@ -22,7 +22,7 @@ const Coffee = () => {
 
     return (
         <>
-            <div className="flex justify-center items-center">
+            <div className=" mt-24 flex justify-center items-center">
                 <GiCoffeeCup className="text-xl" />
                 <h1 className="text-xl text-[#604731] font-semibold">Popular Menu</h1>
             </div>

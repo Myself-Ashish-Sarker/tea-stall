@@ -92,7 +92,7 @@ const Navbar = () => {
         }
 
     return (
-        <div>
+        <div className='fixed w-full z-30'>
             <div className="navbar bg-[#900C3F]">
                 <div className="navbar-start">
                     <div className="dropdown">
