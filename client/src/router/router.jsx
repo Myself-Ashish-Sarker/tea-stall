@@ -9,6 +9,7 @@ import UserInfo from "../components/UserInfo/UserInfo";
 import DashboardPage from "../pages/DashboardPage/DashboardPage";
 import UserOrders from "../pages/DashboardPage/UserPages/UserOrders";
 import AllUsers from "../pages/DashboardPage/AdminPages/AllUsers";
+import CoffeeDetails from "../pages/HomePage/CoffeeDetails";
 
 const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />
+            },
+            {
+                path: "/coffee/:id",
+                element: <CoffeeDetails />
             },
             {
                 path: "/user-info",

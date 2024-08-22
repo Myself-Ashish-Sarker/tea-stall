@@ -33,7 +33,9 @@ const Coffee = () => {
                             <h2 className="card-title">{coffee.coffee_name}</h2>
                             <p>{coffee.coffee_short_details}</p>
                             <div className="card-actions justify-start">
-                                <button className="btn btn-primary"><Link>Check Details</Link></button>
+                                <Link to={`/coffee/${coffee._id}`}>
+                                    <button className="btn btn-primary">Coffee Details</button>
+                                </Link>
                             </div>
                         </div>
                     </div>
