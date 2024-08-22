@@ -6,6 +6,7 @@ const CoffeeDetails = () => {
 
     const { id } = useParams();
     const axiosPublic = useAxiosPublic();
+    const [coffee, setCoffee] = useState(null);
 
     useEffect(() => {
         console.log(`Fetching coffee with ID: ${id}`);
@@ -24,6 +25,14 @@ const CoffeeDetails = () => {
     return (
         <div>
             <h1>Coffee Details Page</h1>
+            {
+                coffee && (
+                    <div>
+                        <h1>{coffee.coffee_name}</h1>
+                        <p>{coffee.coffee_details}</p>
+                    </div>
+                )
+            }
         </div>
     );
 };
