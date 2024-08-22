@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { BsPersonCircle } from "react-icons/bs";
 import { AuthContext } from '../../providers/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,10 +11,9 @@ import useAdmin from '../../hooks/useAdmin';
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext);
-
     const {isAdmin, loading, error} = useAdmin();
-
     const location = useLocation();
+    const navigate = useNavigate();
     const pathname = location.pathname;
     console.log(pathname);
 
@@ -38,10 +37,16 @@ const Navbar = () => {
     if (user) {
         links.push({
             title: "Dashboard",
-            path: "/dashboard"
+            path: isAdmin ? "/dashboard/all-users" : "/dashboard/user-order"
             
         });
     }
+
+    useEffect(() => {
+        if (pathname === "/dashboard") {
+            navigate("/", { replace: true})
+        }
+    }, [pathname, navigate])
 
     const dashboards = isAdmin
         ? [
