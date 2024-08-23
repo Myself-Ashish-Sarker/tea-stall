@@ -9,7 +9,7 @@ const UserInfo = () => {
     const {userData, loading, error} = useUserData();
 
     return (
-        <div>
+        <div className="pt-24">
             {
                 user ?
                     <>

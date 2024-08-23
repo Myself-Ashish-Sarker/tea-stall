@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useParams } from "react-router-dom";
 import useAdmin from "../../hooks/useAdmin";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const CoffeeDetails = () => {
 
     const { id } = useParams();
     const axiosPublic = useAxiosPublic();
     const [coffee, setCoffee] = useState(null);
-    const { isAdmin, loading, error } = useAdmin();
+    const { isAdmin } = useAdmin();
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         console.log(`Fetching coffee with ID: ${id}`);
@@ -23,6 +25,25 @@ const CoffeeDetails = () => {
                 console.log(err.message);
             });
     }, [id]);
+
+    const handleAddCart = () => {
+        if (!user) {
+            alert("You must be logged in to add items to the cart.");
+            return;
+        }
+
+        axiosPublic.post('/carts', {
+            email: user.email,
+            coffeeName: coffee.coffee_name,
+            coffeePrice: coffee.coffee_price
+        })
+            .then(res => {
+                alert("Item added to cart");
+            })
+            .catch(err => {
+                console.error(err.message);
+            });
+    };
 
     return (
         <div className="pt-24 bg-[#f9f6f1] min-h-screen p-8">
@@ -40,6 +61,7 @@ const CoffeeDetails = () => {
                                 <div className={`pt-8`}>
                                     <div className={`${isAdmin ? "tooltip tooltip-bottom" : ""}`} data-tip={`${isAdmin ? "Admins can't add items to the cart" : ""}`}>
                                         <button
+                                            onClick={handleAddCart}
                                             disabled={isAdmin}
                                             className={`btn bg-[#604731] hover:bg-black text-white `}
                                         >

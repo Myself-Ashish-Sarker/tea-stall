@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BsPersonCircle } from "react-icons/bs";
 import { AuthContext } from '../../providers/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
@@ -13,7 +13,6 @@ const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     const {isAdmin, loading, error} = useAdmin();
     const location = useLocation();
-    const navigate = useNavigate();
     const pathname = location.pathname;
     console.log(pathname);
 
@@ -41,12 +40,6 @@ const Navbar = () => {
             
         });
     }
-
-    useEffect(() => {
-        if (pathname === "/dashboard") {
-            navigate("/", { replace: true})
-        }
-    }, [pathname, navigate])
 
     const dashboards = isAdmin
         ? [

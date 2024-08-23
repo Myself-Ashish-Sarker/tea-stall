@@ -40,6 +40,7 @@ async function run() {
 
         const usersCollection = client.db("tea-stall").collection("users");
         const coffeesCollection = client.db("tea-stall").collection("coffee");
+        const cartsCollection = client.db("tea-stall").collection("carts");
 
         // user section
         app.post("/users", async (req, res) => {
@@ -69,7 +70,7 @@ async function run() {
         app.delete("/users/firebase/:uid", async (req, res) => {
             const { uid } = req.params;
             console.log("Attempting to delete Firebase user with UID:", uid);
-        
+
             try {
                 await admin.auth().deleteUser(uid);
                 res.status(200).send({ message: 'User deleted from Firebase' });
@@ -88,7 +89,7 @@ async function run() {
 
         app.get("/coffee/:id", async (req, res) => {
             const id = req.params.id;
-            const query = {_id: new ObjectId(id)};
+            const query = { _id: new ObjectId(id) };
             const options = {
                 // Inculde only the 'title' and 'imdb' fields in the returned document
                 projection: { coffee_name: 1, coffee_short_details: 1, coffee_details: 1, coffee_price: 1, coffee_img: 1, }
@@ -97,6 +98,51 @@ async function run() {
             res.send(result);
         })
         // coffee section
+
+        // carts
+        app.post("/carts", async (req, res) => {
+            const { email, coffeeName, coffeePrice } = req.body;
+            try {
+                // Check if the cart for the user exists
+                let cart = await cartsCollection.findOne({ email });
+                if (!cart) {
+                    // Create a new cart if it doesn't exist
+                    cart = { email, items: [] };
+                }
+
+                // Add the new coffee item to the user's cart
+                cart.items.push({ coffeeName, coffeePrice });
+                await cartsCollection.updateOne(
+                    { email },
+                    { $set: { items: cart.items } },
+                    { upsert: true }
+                );
+                res.status(200).send({ message: 'Item added to cart' });
+            } catch (error) {
+                res.status(500).send({ error: error.message });
+            }
+        });
+
+        // Endpoint to get user's cart
+        app.get("/carts/:email", async (req, res) => {
+            const { email } = req.params;
+            try {
+                const cart = await cartsCollection.findOne({ email });
+                if (cart) {
+                    res.status(200).send(cart.items);
+                } else {
+                    res.status(404).send({ message: 'Cart not found' });
+                }
+            } catch (error) {
+                res.status(500).send({ error: error.message });
+            }
+        });
+
+        app.get("/carts", async (req,res) => {
+            const result = await cartsCollection.find().toArray();
+            res.send(result);
+        })
+        // carts
 
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
